@@ -1,4 +1,4 @@
-import db from "../databases/database";
+import storeFrontDevDB from "../databases/database";
 import theUser from "../types/userType";
 //Create user
 // As we know that the table are represented by class in code and each row is represented by an instances of this class
@@ -6,17 +6,17 @@ class userModel {
   // create user method
   async createUser(user: theUser): Promise<theUser | undefined> {
     try {
-      const dataBaseConnection = await db.connect(); // to conncet with dataBase
+      const dataBaseConnection = await storeFrontDevDB.connect(); // to conncet with dataBase
       const sqlInstruction =
-        "INSERT INTO users (userName , userFirstName ,userLastName , userEmail,userPassword) VLAUES ($user_Name , $user_firstName , $user_secondName , $user_email ,$user_password ) returning *";
+        `INSERT INTO users (useremail,username , userfirstname ,userlastname , userpassword) VALUES ($1 , $2 , $3 , $4 ,$5) returning *`;
       const resultsFromMySqlInstruction = await dataBaseConnection.query(
         sqlInstruction,
         [
-          user.user_name,
-          user.user_firsName,
-          user.user_lastName,
-          user.user_email,
-          user.user_password,
+          user.useremail,
+          user.username,
+          user.userfirstname,
+          user.userlastname,
+          user.userpassword,
         ]
       );
 

@@ -2,25 +2,26 @@
 
 import { Response, Request, NextFunction } from "express";
 import userModel from "../models/user.modell";
-import theUser from "../types/userType";
+
 
 // As the userModel is a class represent the table we will create  an instance from this class to be a row
-const theUser = new userModel();
+const theUserModel = new userModel();
 
 // This is method which reposible for calling creating user api
 export const createUserFromController = async (
   request: Request,
   response: Response,
-  next: NextFunction
+
 ): Promise<void> => {
   try {
-    const user :theUser | undefined = await theUser.createUser(request.body);
+    const user = await theUserModel.createUser(request.body);
     response.json({
       code: 200,
       status: "success",
-      data: { ...user },
-    });
+      data: {...user},
+    }).send("hi");
   } catch (error) {
-    next(error);
+   console.log(error);
+   
   }
 };

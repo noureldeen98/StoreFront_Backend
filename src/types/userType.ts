@@ -1,11 +1,11 @@
 type theUser={
    
-    user_id?:string,
-    user_name:string,
-    user_firsName:string,
-    user_lastName:string,
-    user_password:string,
-    user_email:string
+    userid?:string,
+    username:string,
+    userfirstname:string,
+    userlastname:string,
+    userpassword:string,
+    useremail:string
 }
 
 export default theUser;

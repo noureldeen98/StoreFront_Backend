@@ -13,7 +13,7 @@ const myMainStoreFrontBackend = (0, express_1.default)();
 myMainStoreFrontBackend.use(body_parser_1.default.json());
 // declaring port number
 const myMainStoreFrontBackendPort = config_1.default.port || 10000;
-myMainStoreFrontBackend.use("/sotreForn/api", index_1.default);
+myMainStoreFrontBackend.use("/sotreFront/api", index_1.default);
 // listeng our project on server at port:
 myMainStoreFrontBackend.listen(myMainStoreFrontBackendPort, () => {
     console.log(`The server is running at port ${myMainStoreFrontBackendPort}`);
