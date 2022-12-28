@@ -14,7 +14,7 @@ dotenv_1.default.config();
 const storeFrontDevDB = new pg_1.Pool({
     // Data specific to the DB from config file which get the data from env
     host: config_1.default.dbLocation,
-    database: config_1.default.dbNameTest,
+    database: config_1.default.dbName,
     user: config_1.default.dbUser,
     password: config_1.default.dbPassword,
     port: parseInt(config_1.default.portDB, 10)
