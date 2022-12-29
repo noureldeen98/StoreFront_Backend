@@ -21,13 +21,13 @@ class userModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const dataBaseConnection = yield database_1.default.connect(); // to conncet with dataBase
-                const sqlInstruction = 'INSERT INTO users (useremail,username , userfirstname ,userlastname , userpassword) values ($1 , $2 , $3 , $4 ,$5 ) returning *';
+                const sqlInstruction = `INSERT INTO users (useremail,username , userfirstname ,userlastname , userpassword) VALUES ($1 , $2 , $3 , $4 ,$5) returning *`;
                 const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction, [
-                    user.user_email,
-                    user.user_name,
-                    user.user_firsName,
-                    user.user_lastName,
-                    user.user_password,
+                    user.useremail,
+                    user.username,
+                    user.userfirstname,
+                    user.userlastname,
+                    user.userpassword,
                 ]);
                 dataBaseConnection.release(); // is used to stop the connection
                 return resultsFromMySqlInstruction.rows[0]; // returns the first index of the array
