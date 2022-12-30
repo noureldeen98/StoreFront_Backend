@@ -3,6 +3,9 @@
 
 import { Response, Request, NextFunction } from "express";
 import userModel from "../models/user.modell";
+import jwt from "jsonwebtoken"
+import  config  from "../config";
+import theUser from "../types/userType";
 
 // As the userModel is a class represent the table we will create  an instance from this class to be a row
 const theUserModel = new userModel();
@@ -66,7 +69,7 @@ try{    const updatedUser = await theUserModel.userUpdating(request.body)
   }
 
     
-  // the integration with get specific user using user_id which is send in body request
+  // the integration with get specific user using user_id which is send in url params
 export const getUserFromController = async (request:Request , response:Response):Promise<void>=>{
   try{
     const user = await theUserModel.getTheUser(request.params.userID as unknown as string);
@@ -81,6 +84,37 @@ catch(error){
    
 }
 }
+
+// creating the jwt
+export const creatingJWTByCallingServerFromController = async (request:Request,response:Response)=>{
+    try{
+      const  {useremail,userpassword} = request.body
+      const userAuthenticated = await theUserModel.checkingUserAuthenticationFromModel(useremail,userpassword);
+      console.log("from contorller");
+      
+      console.log(userAuthenticated);
+      
+      const theJWTToken:string  = jwt.sign({userAuthenticated},config.tokenSecret as unknown  as string);
+console.log(theJWTToken);
+
+      
+      if(userAuthenticated){
+        return response.json({
+          status:"success",
+          data:{...userAuthenticated,theJWTToken}
+        })
+      }else{
+        response.json({
+          status:"error",
+          message:"This user is not authenticated"
+        })
+      }
+    }catch(error){
+      console.log(error);
+      
+    }
+}
+
 
 
 

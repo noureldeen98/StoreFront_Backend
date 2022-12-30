@@ -27,5 +27,10 @@ const express_1 = require("express");
 const controllers = __importStar(require("../../controllers/user.contoler"));
 const theUsersRoutes = (0, express_1.Router)();
 // just for testing the api 
-theUsersRoutes.post("/", controllers.createUserFromController);
+theUsersRoutes.post("/createUser", controllers.createUserFromController);
+theUsersRoutes.get("/getAllUsers", controllers.getAllUsersFromController);
+theUsersRoutes.patch("/:id/editUsers", controllers.updateUserFromController);
+theUsersRoutes.get("/:id/getUser", controllers.getUserFromController);
+theUsersRoutes.delete("/:id/deletetUser", controllers.DeleteUserFromController);
+theUsersRoutes.delete("/authenticate", controllers.creatingJWTByCallingServerFromController);
 exports.default = theUsersRoutes;

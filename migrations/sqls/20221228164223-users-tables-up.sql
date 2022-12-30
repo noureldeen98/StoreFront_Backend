@@ -10,5 +10,5 @@ CREATE TABLE users(
 userName VARCHAR(50) NOT NULL,
 userFirstName VARCHAR(50) NOT NULL,
 userLastName VARCHAR(50) NOT NULL,
-userPassword VARCHAR(10) NOT NULL
+userPassword VARCHAR(300) NOT NULL
 )
