@@ -1,4 +1,4 @@
-import { Request, Router, Response } from "express";
+import { Router } from "express";
 import * as controllers from "../../controllers/user.contoler";
 
 const theUsersRoutes = Router();

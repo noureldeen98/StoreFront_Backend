@@ -1,7 +1,7 @@
 import storeFrontDevDB from "../databases/database";
 import theUser from "../types/userType";
 import config from "../config";
-import bcrypt from "bcrypt";
+import * as bcrypt from "bcrypt";
 import { PoolClient, QueryResult } from "pg";
 
 // Hashing method which is used to hash the passwords with some salt and pepper
@@ -129,7 +129,7 @@ class userModel {
 
         console.log(isPasswordIsValid);
         // if it is true
-        if (!isPasswordIsValid) {
+        if (isPasswordIsValid) {
           const sqlInstruction = `SELECT username,useremail,userfirstname,userlastname FROM users WHERE useremail=($1)`;
           const theNeededdUser = await dataBaseConnection.query(
             sqlInstruction,
