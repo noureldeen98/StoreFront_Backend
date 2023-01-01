@@ -8,8 +8,7 @@ import { PoolClient, QueryResult } from "pg";
 const hashingPasswords = (thePasswordOfUser: string) => {
   const saltOfBcrypt = parseInt(config.salfBcrypt as string, 10);
   return bcrypt.hashSync(
-    `${thePasswordOfUser}${config.salfBcrypt}`,
-    saltOfBcrypt
+    `${thePasswordOfUser}${config.bcryptHashing}`,saltOfBcrypt
   );
 };
 // As we know that the table are represented by class in code and each row is represented by an instances of this class
@@ -125,11 +124,15 @@ class userModel {
           `${userpassword}${config.bcryptHashing}`,
           hashingPasswords
         ); // Returning boolean
-        console.log("password is valid");
+        console.log("password is valid?");
+console.log( `${userpassword}${config.bcryptHashing}`,hashingPasswords);
+
+
 
         console.log(isPasswordIsValid);
-        // if it is true
+        // if it is true?
         if (isPasswordIsValid) {
+
           const sqlInstruction = `SELECT username,useremail,userfirstname,userlastname FROM users WHERE useremail=($1)`;
           const theNeededdUser = await dataBaseConnection.query(
             sqlInstruction,

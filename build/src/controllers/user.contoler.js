@@ -100,7 +100,10 @@ const creatingJWTByCallingServerFromController = (request, response) => __awaite
     try {
         const { useremail, userpassword } = request.body;
         const userAuthenticated = yield theUserModel.checkingUserAuthenticationFromModel(useremail, userpassword);
+        console.log("from contorller");
+        console.log(userAuthenticated);
         const theJWTToken = jsonwebtoken_1.default.sign({ userAuthenticated }, config_1.default.tokenSecret);
+        console.log(theJWTToken);
         if (userAuthenticated) {
             return response.json({
                 status: "success",

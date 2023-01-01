@@ -88,7 +88,7 @@ catch(error){
 // creating the jwt
 export const creatingJWTByCallingServerFromController = async (request:Request,response:Response)=>{
     try{
-      const  {useremail,userpassword} = request.body.userAuthenticated
+      const  {useremail,userpassword} = request.body
       const userAuthenticated = await theUserModel.checkingUserAuthenticationFromModel(useremail,userpassword);
       console.log("from contorller");
       

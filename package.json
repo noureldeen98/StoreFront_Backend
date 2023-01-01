@@ -14,7 +14,7 @@
     "jasmine": "jasmine",
     "dev": "NODE_ENV=development node ./build/src/index.js",
     "migration:run": "db-migrate up",
-    "migration-down":"db-migrate down"
+    "migration-down": "db-migrate down"
   },
   "repository": {
     "type": "git",
