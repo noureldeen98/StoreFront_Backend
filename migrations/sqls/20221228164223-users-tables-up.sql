@@ -5,8 +5,8 @@
 --  Table schema 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE users(
-  userID uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
-  userEmail VARCHAR(100) UNIQUE,
+  userID  uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
+  userEmail VARCHAR(100) UNIQUE NOT NULL,
 userName VARCHAR(50) NOT NULL,
 userFirstName VARCHAR(50) NOT NULL,
 userLastName VARCHAR(50) NOT NULL,
