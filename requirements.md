@@ -2,15 +2,23 @@ API Endpoints
  For users:
     /createUsers   
     /getAllUsers
-    /authenticate
     /:id/editUsers
     /:id/getUser
     /:id/deletetUser
     /authenticate
 
  *For products:
-   
- *For users:  
+         /createproduct
+          /getAllproducts
+          /:id/editproducts
+          /:id/getproduct
+          /:id/deletetproduct
+ *For orders:  
+           /createorder
+          /getAllorders
+          /:id/editorders
+          /:id/getorder
+          /:id/deletetorder
 
 <!-- data base shapes -->
 

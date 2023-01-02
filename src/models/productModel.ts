@@ -1,21 +1,20 @@
 import storeFrontDevDB from "../databases/database";
-import theOrder from "../types/orderType";
+import theProduct from "../types/productType";
 import { PoolClient, QueryResult } from "pg";
 
 // As we know that the table are represented by class in code and each row is represented by an instances of this class
-class orderModel {
-  // create order method
-  async createOrder(order: theOrder): Promise<theOrder | undefined> {
+class productModel {
+  // create product method
+  async createProduct(product: theProduct): Promise<theProduct | undefined> {
     try {
       const dataBaseConnection: PoolClient = await storeFrontDevDB.connect(); // to conncet with dataBase
-      const sqlInstruction = `INSERT INTO oreders (orderdate , totalprice) VALUES ($1 , $2 ) returning useremail,productid,orderid,orderdate,totalprice `;
+      const sqlInstruction = `INSERT INTO products (productname , productexpirationdate , productcategory) VALUES ($1 , $2,$3 ) returning productid,productname,productexpirationdate,productcategory `;
       const resultsFromMySqlInstruction: QueryResult =
         await dataBaseConnection.query(sqlInstruction, [
-          order.useremail,
-          order.productid,
-          order.orderid,
-          order.orderdate,
-          order.totalprice
+            
+            product.productname,
+            product.productexpirationdate,
+            product.productcategory
         
         ]);
 
@@ -27,12 +26,12 @@ class orderModel {
     }
   }
 
-  // get all orders method
-  async getAllOrders(): Promise<theOrder[]> {
+  // get all products method
+  async getAllProducts(): Promise<theProduct[]> {
     try {
       const dataBaseConnection: PoolClient = await storeFrontDevDB.connect();
       const sqlInstruction =
-        "SELECT useremail,productid,orderid,orderdate,totalprice FROM orders";
+        "SELECT productid,productname,productexpirationdate,productcategory  FROM products";
       const resultsFromMySqlInstruction: QueryResult =
         await dataBaseConnection.query(sqlInstruction);
       dataBaseConnection.release();
@@ -42,53 +41,51 @@ class orderModel {
     }
   }
 
-  //  get specific order using orderid as a parameter
-  async getTheOrder(oredr_id: string): Promise<theOrder | undefined> {
+  //  get specific product using productid as a parameter
+  async getTheProduct(product_id: string): Promise<theProduct | undefined> {
     try {
       const dataBaseConnection: PoolClient = await storeFrontDevDB.connect();
-      const sqlInstruction = `SELECT useremail,productid,orderid,orderdate,totalprice FROM orders WHERE orderid = ($1)`;
+      const sqlInstruction = `SELECT productid , productname ,productexpirationdate , productcategory FROM products WHERE productid = ($1)`;
       const resultsFromMySqlInstruction = await dataBaseConnection.query(
         sqlInstruction,
-        [oredr_id]
+        [product_id]
       );
       dataBaseConnection.release();
       return resultsFromMySqlInstruction.rows[0];
     } catch (error) {
       throw new Error(
-        `Sorry this order ${oredr_id} is not found, ${(error as Error).message} `
+        `Sorry this product ${product_id} is not found, ${(error as Error).message} `
       );
     }
   }
 
-  // Updating orders
-  async orderUpdating(order: theOrder): Promise<theOrder | undefined> {
+  // Updating products
+  async productUpdating(product: theProduct): Promise<theProduct | undefined> {
     const dataBaseConnection: PoolClient = await storeFrontDevDB.connect();
-    const sqlInstruction = `UPDATE orders SET orderdate=$1, totalprice=$2 where orderid=$3 returning useremail,productid,orderid,orderdate,totalprice`;
+    const sqlInstruction = `UPDATE products SET productname=$1, productexpirationdate=$2 ,productcategory=$3  WHERE productid=$4 returning productid,productname,productexpirationdate,productcategory`;
     const resultsFromMySqlInstruction = await dataBaseConnection.query(
       sqlInstruction,
       [
-        order.useremail,
-        order.productid,
-        order.orderid,
-        order.orderdate,
-        order.totalprice
+        product.productname,
+        product.productexpirationdate,
+        product.productcategory
       ]
     );
     dataBaseConnection.release();
     return resultsFromMySqlInstruction.rows[0];
   }
 
-  // Deleting order
-  async orderDeleting(order_id: string): Promise<theOrder | undefined> {
+  // Deleting product
+  async productDeleting(product_id: string): Promise<theProduct | undefined> {
     try {
       const dataBaseConnection: PoolClient = await storeFrontDevDB.connect();
-      const sqlInstruction = `DELETE FROM orders WHERE orderid = ($1) returning useremail,productid,orderid,orderdate,totalprice`;
+      const sqlInstruction = `DELETE FROM products WHERE productid = ($1) returning useremail,productid,productid,productdate,totalprice`;
       const resultsFromMySqlInstruction: QueryResult =
         await dataBaseConnection.query(sqlInstruction);
       return resultsFromMySqlInstruction.rows[0];
     } catch (error) {
       throw new Error(
-        `Sorry this order ${order_id} is not found, ${(error as Error).message} `
+        `Sorry this product ${product_id} is not found, ${(error as Error).message} `
       );
     }
   }
@@ -96,4 +93,4 @@ class orderModel {
   
 }
 
-export default orderModel;
+export default productModel;

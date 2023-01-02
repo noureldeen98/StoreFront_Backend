@@ -54,7 +54,7 @@ class userModel {
   async getTheUser(user_id: string): Promise<theUser | undefined> {
     try {
       const dataBaseConnection: PoolClient = await storeFrontDevDB.connect();
-      const sqlInstruction = `SELECT userid,username, userfirstname , userlastname , useremail FROM user WHERE userid = ($user_id)`;
+      const sqlInstruction = `SELECT userid,username, userfirstname , userlastname , useremail FROM user WHERE userid = ($1)`;
       const resultsFromMySqlInstruction = await dataBaseConnection.query(
         sqlInstruction,
         [user_id]
@@ -90,7 +90,7 @@ class userModel {
   async userDeleting(user_id: string): Promise<theUser | undefined> {
     try {
       const dataBaseConnection: PoolClient = await storeFrontDevDB.connect();
-      const sqlInstruction = `DELETE FROM users WHERE userid = ($user_id) returning userid , username ,userfirstname,userlastname ,useremail`;
+      const sqlInstruction = `DELETE FROM users WHERE userid = ($1) returning userid , username ,userfirstname,userlastname ,useremail`;
       const resultsFromMySqlInstruction: QueryResult =
         await dataBaseConnection.query(sqlInstruction);
       return resultsFromMySqlInstruction.rows[0];
