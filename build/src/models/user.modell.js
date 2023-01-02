@@ -139,7 +139,7 @@ class userModel {
                 if (resultsFromMySqlInstruction.rows.length) {
                     const { userpassword: hashingPasswords } = resultsFromMySqlInstruction.rows[0];
                     const isPasswordIsValid = bcrypt.compareSync(`${userpassword}${config_1.default.bcryptHashing}`, hashingPasswords); // Returning boolean
-                    console.log("password is valid");
+                    console.log("password is valid?");
                     console.log(`${userpassword}${config_1.default.bcryptHashing}`, hashingPasswords);
                     console.log(isPasswordIsValid);
                     // if it is true?

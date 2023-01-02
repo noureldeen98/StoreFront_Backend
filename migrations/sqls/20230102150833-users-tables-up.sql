@@ -1,5 +1,4 @@
 
-
 /* Replace with your SQL commands */
 -- Here you can up your tables and "up" here means that create or build  "
 --  Table schema 
@@ -12,3 +11,4 @@ userFirstName VARCHAR(50) NOT NULL,
 userLastName VARCHAR(50) NOT NULL,
 userPassword VARCHAR(300) NOT NULL
 )
+

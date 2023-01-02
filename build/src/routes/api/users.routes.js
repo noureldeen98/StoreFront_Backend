@@ -22,9 +22,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const controllers = __importStar(require("../../controllers/user.contoler"));
+const middleware_userAuthentication_1 = __importDefault(require("../../middlewares/middleware_userAuthentication"));
 const theUsersRoutes = (0, express_1.Router)();
 // just for testing the api
 theUsersRoutes.post("/createUser", controllers.createUserFromController);
@@ -32,5 +36,5 @@ theUsersRoutes.get("/getAllUsers", controllers.getAllUsersFromController);
 theUsersRoutes.patch("/:id/editUsers", controllers.updateUserFromController);
 theUsersRoutes.get("/:id/getUser", controllers.getUserFromController);
 theUsersRoutes.delete("/:id/deletetUser", controllers.DeleteUserFromController);
-theUsersRoutes.post("/authenticate", controllers.creatingJWTByCallingServerFromController);
+theUsersRoutes.post("/authenticate", middleware_userAuthentication_1.default, controllers.creatingJWTByCallingServerFromController);
 exports.default = theUsersRoutes;
