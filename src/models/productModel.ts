@@ -8,13 +8,14 @@ class productModel {
   async createProduct(product: theProduct): Promise<theProduct | undefined> {
     try {
       const dataBaseConnection: PoolClient = await storeFrontDevDB.connect(); // to conncet with dataBase
-      const sqlInstruction = `INSERT INTO products (productname , productexpirationdate , productcategory) VALUES ($1 , $2,$3 ) returning productid,productname,productexpirationdate,productcategory `;
+      const sqlInstruction = `INSERT INTO products (productname , productexpirationdate , productcategory ,productprice) VALUES ($1 , $2,$3,$4 ) returning productid,productname,productexpirationdate,productcategory,productprice `;
       const resultsFromMySqlInstruction: QueryResult =
         await dataBaseConnection.query(sqlInstruction, [
             
             product.productname,
             product.productexpirationdate,
-            product.productcategory
+            product.productcategory,
+            product.productprice
         
         ]);
 
@@ -31,7 +32,7 @@ class productModel {
     try {
       const dataBaseConnection: PoolClient = await storeFrontDevDB.connect();
       const sqlInstruction =
-        "SELECT productid,productname,productexpirationdate,productcategory  FROM products";
+        "SELECT productid,productname,productexpirationdate,productcategory,productprice  FROM products";
       const resultsFromMySqlInstruction: QueryResult =
         await dataBaseConnection.query(sqlInstruction);
       dataBaseConnection.release();
@@ -45,7 +46,7 @@ class productModel {
   async getTheProduct(product_id: string): Promise<theProduct | undefined> {
     try {
       const dataBaseConnection: PoolClient = await storeFrontDevDB.connect();
-      const sqlInstruction = `SELECT productid , productname ,productexpirationdate , productcategory FROM products WHERE productid = ($1)`;
+      const sqlInstruction = `SELECT productid , productname ,productexpirationdate , productcategory,productprice FROM products WHERE productid = ($1)`;
       const resultsFromMySqlInstruction = await dataBaseConnection.query(
         sqlInstruction,
         [product_id]
@@ -62,13 +63,14 @@ class productModel {
   // Updating products
   async productUpdating(product: theProduct): Promise<theProduct | undefined> {
     const dataBaseConnection: PoolClient = await storeFrontDevDB.connect();
-    const sqlInstruction = `UPDATE products SET productname=$1, productexpirationdate=$2 ,productcategory=$3  WHERE productid=$4 returning productid,productname,productexpirationdate,productcategory`;
+    const sqlInstruction = `UPDATE products SET productname=$1, productexpirationdate=$2 ,productcategory=$3 ,productprice=$4  WHERE productid=$5 returning productid,productname,productexpirationdate,productcategory,productprice`;
     const resultsFromMySqlInstruction = await dataBaseConnection.query(
       sqlInstruction,
       [
         product.productname,
         product.productexpirationdate,
-        product.productcategory
+        product.productcategory,
+        product.productprice
       ]
     );
     dataBaseConnection.release();
@@ -79,7 +81,7 @@ class productModel {
   async productDeleting(product_id: string): Promise<theProduct | undefined> {
     try {
       const dataBaseConnection: PoolClient = await storeFrontDevDB.connect();
-      const sqlInstruction = `DELETE FROM products WHERE productid = ($1) returning useremail,productid,productid,productdate,totalprice`;
+      const sqlInstruction = `DELETE FROM products WHERE productid = ($1) returning productid,productname,productexpirationdate,productcategory,productprice`;
       const resultsFromMySqlInstruction: QueryResult =
         await dataBaseConnection.query(sqlInstruction);
       return resultsFromMySqlInstruction.rows[0];

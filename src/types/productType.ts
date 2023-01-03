@@ -4,6 +4,7 @@ type theProduct={
     productname:string,
     productexpirationdate:Date,
     productcategory:string,
+    productprice:string
 
 }
 
