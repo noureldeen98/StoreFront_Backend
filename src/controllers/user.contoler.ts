@@ -1,11 +1,11 @@
 // In this file we will handle all the http responses and requests which will call the apis of the user
 // Here the controllers can integrate with models
 
-import { Response, Request, NextFunction } from "express";
+import { Response, Request } from "express";
 import userModel from "../models/user.modell";
 import jwt from "jsonwebtoken"
 import  config  from "../config";
-import theUser from "../types/userType";
+
 
 // As the userModel is a class represent the table we will create  an instance from this class to be a row
 const theUserModel = new userModel();

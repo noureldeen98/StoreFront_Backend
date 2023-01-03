@@ -3,12 +3,36 @@ Project Description: It is a simple project which contains database, calling API
                      Based on node.js , using express framework and postgres
 publisher:Nour-Eldeen Nasser Morad Elkatan.
 
+# Environment variables.
+The server port number is: 10000
+The db port number is: 5432  
+The environment variables:
+PORT=10000
+NODE_ENV=development  
+PS_LOCATION_OF_DB
+DB_NAME_DEV
+DB_NAME_TEST
+DB_USER
+DB_PASSWORD
+DB_PORT=5432
+PASSWORD_BCRYPT_FOR_HASHING_PASSWORD
+SALT_OF_BCRYPT
+SECRET_TOKEN_FOR_JWT
+
+# Package installation instructions
+npm i to install all the modules that I used
+
+# Setup db and server instructions.
+actually use npm i 
+  npm i db-migrate
+
 How to install and run?
    Kindly, open the CMD then run the following command lines.
     first: npm i 
     second: npm run test //This for to run the suits and build the main file which is index.js and will be found in build folder.
-    third:cd build
-    forth: node index.js
+    forth: run command >>> npm run start.  
+
+
 
 How to Use the Project?
    After running open your browser and write this URL 
@@ -55,4 +79,4 @@ commands will help you:
   start to run the project : npm run start
   to get the build folder : npm run test
   to migrat up : npm run migration:run
-  to migrat up : npm run migration-down
+  to migrat down : npm run migration-down
