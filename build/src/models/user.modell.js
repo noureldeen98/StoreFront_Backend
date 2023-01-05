@@ -86,7 +86,7 @@ class userModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const dataBaseConnection = yield database_1.default.connect();
-                const sqlInstruction = `SELECT userid,username, userfirstname , userlastname , useremail FROM user WHERE userid = ($user_id)`;
+                const sqlInstruction = `SELECT userid,username, userfirstname , userlastname , useremail FROM users WHERE userid = ($1)`;
                 const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction, [user_id]);
                 dataBaseConnection.release();
                 return resultsFromMySqlInstruction.rows[0];
@@ -117,7 +117,7 @@ class userModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const dataBaseConnection = yield database_1.default.connect();
-                const sqlInstruction = `DELETE FROM users WHERE userid = ($user_id) returning userid , username ,userfirstname,userlastname ,useremail`;
+                const sqlInstruction = `DELETE FROM users WHERE userid = ($1) returning userid , username ,userfirstname,userlastname ,useremail`;
                 const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction);
                 return resultsFromMySqlInstruction.rows[0];
             }

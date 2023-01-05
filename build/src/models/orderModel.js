@@ -20,10 +20,8 @@ class orderModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const dataBaseConnection = yield database_1.default.connect(); // to conncet with dataBase
-                const sqlInstruction = `INSERT INTO oreders (orderdate , totalprice) VALUES ($1 , $2 ) returning useremail,productid,orderid,orderdate,totalprice `;
+                const sqlInstruction = `INSERT INTO orders (orderdate , totalprice) VALUES ($1 , $2) returning orderid,orderdate,totalprice `;
                 const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction, [
-                    order.useremail,
-                    order.productid,
                     order.orderid,
                     order.orderdate,
                     order.totalprice
@@ -41,7 +39,7 @@ class orderModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const dataBaseConnection = yield database_1.default.connect();
-                const sqlInstruction = "SELECT useremail,productid,orderid,orderdate,totalprice FROM orders";
+                const sqlInstruction = "SELECT orderid,orderdate,totalprice FROM orders";
                 const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction);
                 dataBaseConnection.release();
                 return resultsFromMySqlInstruction.rows;
@@ -56,7 +54,7 @@ class orderModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const dataBaseConnection = yield database_1.default.connect();
-                const sqlInstruction = `SELECT useremail,productid,orderid,orderdate,totalprice FROM order WHERE orderid = ($oredr_id)`;
+                const sqlInstruction = `SELECT orderid,orderdate,totalprice FROM orders WHERE orderid = $1`;
                 const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction, [oredr_id]);
                 dataBaseConnection.release();
                 return resultsFromMySqlInstruction.rows[0];
@@ -70,10 +68,8 @@ class orderModel {
     orderUpdating(order) {
         return __awaiter(this, void 0, void 0, function* () {
             const dataBaseConnection = yield database_1.default.connect();
-            const sqlInstruction = `UPDATE orders SET orderdate=$1, totalprice=$2 where orderid=$3 returning useremail,productid,orderid,orderdate,totalprice`;
+            const sqlInstruction = `UPDATE orders SET orderdate=$1, totalprice=$2 where orderid=$3 returning orderid,orderdate,totalprice`;
             const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction, [
-                order.useremail,
-                order.productid,
                 order.orderid,
                 order.orderdate,
                 order.totalprice
@@ -87,7 +83,7 @@ class orderModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const dataBaseConnection = yield database_1.default.connect();
-                const sqlInstruction = `DELETE FROM orders WHERE orderid = ($order_id) returning useremail,productid,orderid,orderdate,totalprice`;
+                const sqlInstruction = `DELETE FROM orders WHERE orderid = ($1) returning orderid,orderdate,totalprice`;
                 const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction);
                 return resultsFromMySqlInstruction.rows[0];
             }

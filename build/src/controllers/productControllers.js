@@ -85,7 +85,7 @@ exports.DeleteProductFromController = DeleteProductFromController;
 // the integration with get specific product using product_id which is send in url params
 const getProductFromController = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const product = yield theProductModel.getTheProduct(request.params.productID);
+        const product = yield theProductModel.getTheProduct(request.params.id);
         response.json({
             status: "success",
             data: product,

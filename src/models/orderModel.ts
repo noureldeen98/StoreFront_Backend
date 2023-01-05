@@ -8,11 +8,10 @@ class orderModel {
   async createOrder(order: theOrder): Promise<theOrder | undefined> {
     try {
       const dataBaseConnection: PoolClient = await storeFrontDevDB.connect(); // to conncet with dataBase
-      const sqlInstruction = `INSERT INTO oreders (orderdate , totalprice) VALUES ($1 , $2 ) returning useremail,productid,orderid,orderdate,totalprice `;
+      const sqlInstruction = `INSERT INTO orders (orderdate , totalprice) VALUES ($1 , $2) returning orderid,orderdate,totalprice `;
       const resultsFromMySqlInstruction: QueryResult =
         await dataBaseConnection.query(sqlInstruction, [
-          order.useremail,
-          order.productid,
+
           order.orderid,
           order.orderdate,
           order.totalprice
@@ -32,7 +31,7 @@ class orderModel {
     try {
       const dataBaseConnection: PoolClient = await storeFrontDevDB.connect();
       const sqlInstruction =
-        "SELECT useremail,productid,orderid,orderdate,totalprice FROM orders";
+        "SELECT orderid,orderdate,totalprice FROM orders";
       const resultsFromMySqlInstruction: QueryResult =
         await dataBaseConnection.query(sqlInstruction);
       dataBaseConnection.release();
@@ -46,7 +45,7 @@ class orderModel {
   async getTheOrder(oredr_id: string): Promise<theOrder | undefined> {
     try {
       const dataBaseConnection: PoolClient = await storeFrontDevDB.connect();
-      const sqlInstruction = `SELECT useremail,productid,orderid,orderdate,totalprice FROM orders WHERE orderid = ($1)`;
+      const sqlInstruction = `SELECT orderid,orderdate,totalprice FROM orders WHERE orderid = $1`;
       const resultsFromMySqlInstruction = await dataBaseConnection.query(
         sqlInstruction,
         [oredr_id]
@@ -63,12 +62,11 @@ class orderModel {
   // Updating orders
   async orderUpdating(order: theOrder): Promise<theOrder | undefined> {
     const dataBaseConnection: PoolClient = await storeFrontDevDB.connect();
-    const sqlInstruction = `UPDATE orders SET orderdate=$1, totalprice=$2 where orderid=$3 returning useremail,productid,orderid,orderdate,totalprice`;
+    const sqlInstruction = `UPDATE orders SET orderdate=$1, totalprice=$2 where orderid=$3 returning orderid,orderdate,totalprice`;
     const resultsFromMySqlInstruction = await dataBaseConnection.query(
       sqlInstruction,
       [
-        order.useremail,
-        order.productid,
+  
         order.orderid,
         order.orderdate,
         order.totalprice
@@ -82,7 +80,7 @@ class orderModel {
   async orderDeleting(order_id: string): Promise<theOrder | undefined> {
     try {
       const dataBaseConnection: PoolClient = await storeFrontDevDB.connect();
-      const sqlInstruction = `DELETE FROM orders WHERE orderid = ($1) returning useremail,productid,orderid,orderdate,totalprice`;
+      const sqlInstruction = `DELETE FROM orders WHERE orderid = ($1) returning orderid,orderdate,totalprice`;
       const resultsFromMySqlInstruction: QueryResult =
         await dataBaseConnection.query(sqlInstruction);
       return resultsFromMySqlInstruction.rows[0];

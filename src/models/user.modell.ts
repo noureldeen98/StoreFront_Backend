@@ -54,7 +54,7 @@ class userModel {
   async getTheUser(user_id: string): Promise<theUser | undefined> {
     try {
       const dataBaseConnection: PoolClient = await storeFrontDevDB.connect();
-      const sqlInstruction = `SELECT userid,username, userfirstname , userlastname , useremail FROM user WHERE userid = ($1)`;
+      const sqlInstruction = `SELECT userid,username, userfirstname , userlastname , useremail FROM users WHERE userid = ($1)`;
       const resultsFromMySqlInstruction = await dataBaseConnection.query(
         sqlInstruction,
         [user_id]

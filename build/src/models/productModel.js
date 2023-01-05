@@ -20,11 +20,12 @@ class productModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const dataBaseConnection = yield database_1.default.connect(); // to conncet with dataBase
-                const sqlInstruction = `INSERT INTO products (productname , productexpirationdate , productcategory) VALUES ($1 , $2,$3 ) returning productid,productname,productexpirationdate,productcategory `;
+                const sqlInstruction = `INSERT INTO products (productname , productexpirationdate , productcategory ,productprice) VALUES ($1 , $2,$3,$4 ) returning productid,productname,productexpirationdate,productcategory,productprice `;
                 const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction, [
                     product.productname,
                     product.productexpirationdate,
-                    product.productcategory
+                    product.productcategory,
+                    product.productprice
                 ]);
                 dataBaseConnection.release(); // is used to stop the connection
                 return resultsFromMySqlInstruction.rows[0]; // returns the first index of the array
@@ -39,7 +40,7 @@ class productModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const dataBaseConnection = yield database_1.default.connect();
-                const sqlInstruction = "SELECT productid,productname,productexpirationdate,productcategory  FROM products";
+                const sqlInstruction = "SELECT productid,productname,productexpirationdate,productcategory,productprice  FROM products";
                 const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction);
                 dataBaseConnection.release();
                 return resultsFromMySqlInstruction.rows;
@@ -54,7 +55,7 @@ class productModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const dataBaseConnection = yield database_1.default.connect();
-                const sqlInstruction = `SELECT useremail,productid,productid,productdate,totalprice FROM product WHERE productid = ($product_id)`;
+                const sqlInstruction = `SELECT productid , productname ,productexpirationdate , productcategory,productprice FROM products WHERE productid = ($1)`;
                 const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction, [product_id]);
                 dataBaseConnection.release();
                 return resultsFromMySqlInstruction.rows[0];
@@ -68,11 +69,12 @@ class productModel {
     productUpdating(product) {
         return __awaiter(this, void 0, void 0, function* () {
             const dataBaseConnection = yield database_1.default.connect();
-            const sqlInstruction = `UPDATE products SET productname=$1, productexpirationdate=$2 ,productcategory=$3  WHERE productid=$4 returning productid,productname,productexpirationdate,productcategory`;
+            const sqlInstruction = `UPDATE products SET productname=$1, productexpirationdate=$2 ,productcategory=$3 ,productprice=$4  WHERE productid=$5 returning productid,productname,productexpirationdate,productcategory,productprice`;
             const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction, [
                 product.productname,
                 product.productexpirationdate,
-                product.productcategory
+                product.productcategory,
+                product.productprice
             ]);
             dataBaseConnection.release();
             return resultsFromMySqlInstruction.rows[0];
@@ -83,7 +85,7 @@ class productModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const dataBaseConnection = yield database_1.default.connect();
-                const sqlInstruction = `DELETE FROM products WHERE productid = ($product_id) returning useremail,productid,productid,productdate,totalprice`;
+                const sqlInstruction = `DELETE FROM products WHERE productid = ($1) returning productid,productname,productexpirationdate,productcategory,productprice`;
                 const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction);
                 return resultsFromMySqlInstruction.rows[0];
             }

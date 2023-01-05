@@ -30,6 +30,7 @@
   "devDependencies": {
     "@types/jasmine": "^4.3.1",
     "@types/pg": "^8.6.6",
+    "@types/supertest": "^2.0.12",
     "@types/typescript": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^5.47.0",
     "@typescript-eslint/parser": "^5.47.0",
@@ -40,6 +41,7 @@
     "node-env-run": "^4.0.2",
     "prettier": "2.8.1",
     "sequelize-cli": "^6.5.2",
+    "supertest": "^6.3.3",
     "tsc-watch": "^6.0.0",
     "typescript": "^4.9.4"
   },
@@ -60,7 +62,6 @@
     "nodemon": "^2.0.20",
     "pg": "^8.8.0",
     "postgres": "^3.3.2",
-    "supertest": "^6.3.3",
     "tsconfig.json": "^1.0.11"
   }
 }

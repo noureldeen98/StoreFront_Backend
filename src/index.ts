@@ -9,7 +9,7 @@ console.log(config);
 
 
 
-const myMainStoreFrontBackend = express();
+export const myMainStoreFrontBackend = express();
 myMainStoreFrontBackend.use(bodyParser.json())
 // declaring port number
 const myMainStoreFrontBackendPort:string | number=config.port || 10000
