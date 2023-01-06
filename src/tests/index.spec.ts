@@ -47,9 +47,9 @@ describe("Test the users api endpoints ", () => {
   // test get user end point using the id which sent as params in url
   it("which is /sotreFront/api/users/:id/getUser", async () => {
     const responseSuperTest = await requestSuperTest.get(
-      "/sotreFront/api/users/:id/getUser"
+      "/sotreFront/api/users/15/getUser"
     );
-    expect(responseSuperTest.status).toBe(200);
+    expect(responseSuperTest.body.status).toEqual("success");
   });
 
   it("which is /sotreFront/api/users/:id/getUser", async () => {
@@ -62,9 +62,9 @@ describe("Test the users api endpoints ", () => {
   // test delete user end point using the id which sent as params in url
   it("which is /sotreFront/api/users/2/deletetUser", async () => {
     const responseSuperTest = await requestSuperTest.delete(
-      "/sotreFront/api/users/:id/deletetUser"
+      "/sotreFront/api/users/15/deletetUser"
     );
-    expect(responseSuperTest.status).toBe(200);
+    expect(responseSuperTest.body.status).toEqual("success");
   });
 
   // test edit user end point using the id which sent as params in url
@@ -96,9 +96,9 @@ describe("Test the order end point ", () => {
   // test edit the order
   it("Test edite the order  ", async () => {
     const responseSuperTest = await requestSuperTest.patch(
-      "/sotreFront/api/orders/:id/editorders"
+      "/sotreFront/api/orders/15/editorders"
     );
-    expect(responseSuperTest.status).toBe(200);
+    expect(responseSuperTest.body.status).toEqual("success");
   });
   // test get the order
   it("Test edite the order  ", async () => {
