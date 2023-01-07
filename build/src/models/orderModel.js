@@ -83,8 +83,9 @@ class orderModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const dataBaseConnection = yield database_1.default.connect();
-                const sqlInstruction = `DELETE FROM orders WHERE orderid = ($1) returning orderid,orderdate,totalprice`;
+                const sqlInstruction = `DELETE FROM orders WHERE orderid = $1 returning orderid,orderdate,totalprice`;
                 const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction);
+                dataBaseConnection.release();
                 return resultsFromMySqlInstruction.rows[0];
             }
             catch (error) {

@@ -119,6 +119,7 @@ class userModel {
                 const dataBaseConnection = yield database_1.default.connect();
                 const sqlInstruction = `DELETE FROM users WHERE userid = ($1) returning userid , username ,userfirstname,userlastname ,useremail`;
                 const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction);
+                dataBaseConnection.release();
                 return resultsFromMySqlInstruction.rows[0];
             }
             catch (error) {

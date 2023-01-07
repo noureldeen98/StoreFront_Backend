@@ -84,6 +84,8 @@ class productModel {
       const sqlInstruction = `DELETE FROM products WHERE productid = ($1) returning productid,productname,productexpirationdate,productcategory,productprice`;
       const resultsFromMySqlInstruction: QueryResult =
         await dataBaseConnection.query(sqlInstruction);
+        dataBaseConnection.release();
+
       return resultsFromMySqlInstruction.rows[0];
     } catch (error) {
       throw new Error(

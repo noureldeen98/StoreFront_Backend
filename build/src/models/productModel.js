@@ -87,6 +87,7 @@ class productModel {
                 const dataBaseConnection = yield database_1.default.connect();
                 const sqlInstruction = `DELETE FROM products WHERE productid = ($1) returning productid,productname,productexpirationdate,productcategory,productprice`;
                 const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction);
+                dataBaseConnection.release();
                 return resultsFromMySqlInstruction.rows[0];
             }
             catch (error) {

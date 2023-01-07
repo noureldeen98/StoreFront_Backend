@@ -93,6 +93,8 @@ class userModel {
       const sqlInstruction = `DELETE FROM users WHERE userid = ($1) returning userid , username ,userfirstname,userlastname ,useremail`;
       const resultsFromMySqlInstruction: QueryResult =
         await dataBaseConnection.query(sqlInstruction);
+        dataBaseConnection.release();
+
       return resultsFromMySqlInstruction.rows[0];
     } catch (error) {
       throw new Error(
