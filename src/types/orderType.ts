@@ -2,7 +2,7 @@ type theOrder={
    
     orderid?:string,
 
-    orderdate:Date,
+    orderdate:string,
     totalprice:string,
 
 }

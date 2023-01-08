@@ -57,7 +57,7 @@ try{    const updatedUser = await theUserModel.userUpdating(request.body)
   // the integration with deleting user using user_id
   export const DeleteUserFromController  =async (request:Request , response:Response):Promise<void>=>{
     try{
-      const deletedUser = await theUserModel.userDeleting(request.body);
+      const deletedUser = await theUserModel.userDeleting(request.params.id);
       response.json({
         status:"success",
         data:deletedUser,
@@ -72,11 +72,12 @@ try{    const updatedUser = await theUserModel.userUpdating(request.body)
   // the integration with get specific user using user_id which is send in url params
 export const getUserFromController = async (request:Request , response:Response):Promise<void>=>{
   try{
-    const user = await theUserModel.getTheUser(request.params.userID as unknown as string);
+    const user = await theUserModel.getTheUser(request.params.id as unknown as string);
     response.json({
       status:"success",
       data:user,
-      message:`The user with id ${request.body} is retrived successfully`
+      message:`The user with id ${request.body} is retrived successfully`,
+
     })
   }
 catch(error){

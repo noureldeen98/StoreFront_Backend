@@ -20,11 +20,10 @@ class productModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const dataBaseConnection = yield database_1.default.connect(); // to conncet with dataBase
-                const sqlInstruction = `INSERT INTO products (productname , productexpirationdate , productcategory ,productprice) VALUES ($1 , $2,$3,$4 ) returning productid,productname,productexpirationdate,productcategory,productprice `;
+                const sqlInstruction = `INSERT INTO products (productname , productexpirationdate  ,productprice) VALUES ($1 , $2,$3 ) returning productid,productname,productexpirationdate,productprice `;
                 const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction, [
                     product.productname,
                     product.productexpirationdate,
-                    product.productcategory,
                     product.productprice
                 ]);
                 dataBaseConnection.release(); // is used to stop the connection
@@ -40,7 +39,7 @@ class productModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const dataBaseConnection = yield database_1.default.connect();
-                const sqlInstruction = "SELECT productid,productname,productexpirationdate,productcategory,productprice  FROM products";
+                const sqlInstruction = "SELECT productid,productname,productexpirationdate,productprice  FROM products";
                 const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction);
                 dataBaseConnection.release();
                 return resultsFromMySqlInstruction.rows;
@@ -55,7 +54,7 @@ class productModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const dataBaseConnection = yield database_1.default.connect();
-                const sqlInstruction = `SELECT productid , productname ,productexpirationdate , productcategory,productprice FROM products WHERE productid = ($1)`;
+                const sqlInstruction = `SELECT productid , productname ,productexpirationdate ,productprice FROM products WHERE productid = ($1)`;
                 const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction, [product_id]);
                 dataBaseConnection.release();
                 return resultsFromMySqlInstruction.rows[0];
@@ -69,11 +68,10 @@ class productModel {
     productUpdating(product) {
         return __awaiter(this, void 0, void 0, function* () {
             const dataBaseConnection = yield database_1.default.connect();
-            const sqlInstruction = `UPDATE products SET productname=$1, productexpirationdate=$2 ,productcategory=$3 ,productprice=$4  WHERE productid=$5 returning productid,productname,productexpirationdate,productcategory,productprice`;
+            const sqlInstruction = `UPDATE products SET productname=$1, productexpirationdate=$2  ,productprice=$3  WHERE productid=$4 returning productid,productname,productexpirationdate,productprice`;
             const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction, [
                 product.productname,
                 product.productexpirationdate,
-                product.productcategory,
                 product.productprice
             ]);
             dataBaseConnection.release();
@@ -85,8 +83,10 @@ class productModel {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const dataBaseConnection = yield database_1.default.connect();
-                const sqlInstruction = `DELETE FROM products WHERE productid = ($1) returning productid,productname,productexpirationdate,productcategory,productprice`;
-                const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction);
+                const sqlInstruction = `DELETE FROM products WHERE productid = ($1) returning productid,productname,productexpirationdate,productprice`;
+                const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction, [
+                    product_id,
+                ]);
                 dataBaseConnection.release();
                 return resultsFromMySqlInstruction.rows[0];
             }

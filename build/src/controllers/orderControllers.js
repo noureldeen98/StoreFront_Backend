@@ -70,7 +70,7 @@ exports.updateOrderFromController = updateOrderFromController;
 // the integration with deleting order using order_id
 const DeleteOrderFromController = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const deletedOrder = yield theOrderModel.orderDeleting(request.body);
+        const deletedOrder = yield theOrderModel.orderDeleting(request.params.id);
         response.json({
             status: "success",
             data: deletedOrder,

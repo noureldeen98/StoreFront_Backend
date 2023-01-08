@@ -59,7 +59,7 @@ try{    const updatedOrder = await theOrderModel.orderUpdating(request.body)
   // the integration with deleting order using order_id
   export const DeleteOrderFromController  =async (request:Request , response:Response):Promise<void>=>{
     try{
-      const deletedOrder = await theOrderModel.orderDeleting(request.body);
+      const deletedOrder = await theOrderModel.orderDeleting(request.params.id);
       response.json({
         status:"success",
         data:deletedOrder,

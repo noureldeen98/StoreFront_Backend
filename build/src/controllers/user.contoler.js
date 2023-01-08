@@ -68,7 +68,7 @@ exports.updateUserFromController = updateUserFromController;
 // the integration with deleting user using user_id
 const DeleteUserFromController = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const deletedUser = yield theUserModel.userDeleting(request.body);
+        const deletedUser = yield theUserModel.userDeleting(request.params.id);
         response.json({
             status: "success",
             data: deletedUser,
@@ -83,11 +83,11 @@ exports.DeleteUserFromController = DeleteUserFromController;
 // the integration with get specific user using user_id which is send in url params
 const getUserFromController = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield theUserModel.getTheUser(request.params.userID);
+        const user = yield theUserModel.getTheUser(request.params.id);
         response.json({
             status: "success",
             data: user,
-            message: `The user with id ${request.body} is retrived successfully`
+            message: `The user with id ${request.body} is retrived successfully`,
         });
     }
     catch (error) {

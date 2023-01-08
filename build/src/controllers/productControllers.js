@@ -70,7 +70,7 @@ exports.updateProductFromController = updateProductFromController;
 // the integration with deleting product using product_id
 const DeleteProductFromController = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const deletedProduct = yield theProductModel.productDeleting(request.body);
+        const deletedProduct = yield theProductModel.productDeleting(request.params.id);
         response.json({
             status: "success",
             data: deletedProduct,

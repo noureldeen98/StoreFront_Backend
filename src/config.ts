@@ -18,7 +18,7 @@ export default{
     dbUser:DB_USER,
     dbPassword:DB_PASSWORD,
     portDB:DB_PORT,
-bcryptHashing:PASSWORD_BCRYPT_FOR_HASHING_PASSWORD,
+    bcryptHashing:PASSWORD_BCRYPT_FOR_HASHING_PASSWORD,
     salfBcrypt:SALT_OF_BCRYPT,
     tokenSecret:SECRET_TOKEN_FOR_JWT
 

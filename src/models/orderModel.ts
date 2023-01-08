@@ -82,7 +82,7 @@ class orderModel {
       const dataBaseConnection: PoolClient = await storeFrontDevDB.connect();
       const sqlInstruction = `DELETE FROM orders WHERE orderid = $1 returning orderid,orderdate,totalprice`;
       const resultsFromMySqlInstruction: QueryResult =
-        await dataBaseConnection.query(sqlInstruction);
+        await dataBaseConnection.query(sqlInstruction,[order_id]);
         dataBaseConnection.release();
       return resultsFromMySqlInstruction.rows[0];
     } catch (error) {

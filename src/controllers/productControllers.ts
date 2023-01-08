@@ -59,7 +59,7 @@ try{    const updatedProduct = await theProductModel.productUpdating(request.bod
   // the integration with deleting product using product_id
   export const DeleteProductFromController  =async (request:Request , response:Response):Promise<void>=>{
     try{
-      const deletedProduct = await theProductModel.productDeleting(request.body);
+      const deletedProduct = await theProductModel.productDeleting(request.params.id);
       response.json({
         status:"success",
         data:deletedProduct,

@@ -92,7 +92,7 @@ class userModel {
       const dataBaseConnection: PoolClient = await storeFrontDevDB.connect();
       const sqlInstruction = `DELETE FROM users WHERE userid = ($1) returning userid , username ,userfirstname,userlastname ,useremail`;
       const resultsFromMySqlInstruction: QueryResult =
-        await dataBaseConnection.query(sqlInstruction);
+        await dataBaseConnection.query(sqlInstruction,[user_id]);
         dataBaseConnection.release();
 
       return resultsFromMySqlInstruction.rows[0];
