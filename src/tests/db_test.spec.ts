@@ -12,7 +12,7 @@ const productModelObj = new productModel()
 const orderModelObj = new orderModel()
 
 
-const userID = "aaf5ac45-1a2a-4ea4-94c8-9a8d00324d60";
+const userID = "9593088d-f62e-4a65-b6ae-eca255c9a731";
 const productID = "4ded5895-a3f5-4b8a-b50e-8347cf3c381c";
 const orderID = "f33af22a-9a1a-418d-bd1b-6f4d154ed245";
 
@@ -27,7 +27,7 @@ const user:theUser={
     userpassword:"test123456"
 }
 
-const createdUser={...user , userid:"9593088d-f62e-4a65-b6ae-eca255c9a731"}
+const createdUser={...user , userid:`${userID}`}
 
 const product:theProduct={
     productname:"Tea",
@@ -59,7 +59,7 @@ describe("test user model",()=>{
     })
 
     it("get the user",async()=>{
-        const result = await userModelObj.getTheUser("9593088d-f62e-4a65-b6ae-eca255c9a731");
+        const result = await userModelObj.getTheUser(`${userID}`);
         expect(result?.useremail).toEqual(user.useremail)
     })
 })
@@ -84,7 +84,7 @@ describe("test order model",()=>{
     })
 
     it("get the order",async()=>{
-        const result = await orderModelObj.getTheOrder("f33af22a-9a1a-418d-bd1b-6f4d154ed245");
+        const result = await orderModelObj.getTheOrder(`${orderID}`);
         expect(result?.totalprice).toEqual(createdOrder.totalprice)
     })
     it("get all orders",async()=>{
