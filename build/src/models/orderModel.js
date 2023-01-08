@@ -18,15 +18,17 @@ class orderModel {
     // create order method
     createOrder(order) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(order);
             try {
                 const dataBaseConnection = yield database_1.default.connect(); // to conncet with dataBase
-                const sqlInstruction = `INSERT INTO orders (orderdate , totalprice) VALUES ($1 , $2) returning orderid,orderdate,totalprice `;
+                const sqlInstruction = `INSERT INTO orders (orderdate , totalprice) VALUES ($1 , $2) returning orderdate,totalprice,orderid `;
                 const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction, [
-                    order.orderid,
                     order.orderdate,
                     order.totalprice
                 ]);
                 dataBaseConnection.release(); // is used to stop the connection
+                console.log("from order model create method");
+                console.log(resultsFromMySqlInstruction.rows[0]);
                 return resultsFromMySqlInstruction.rows[0]; // returns the first index of the array
             }
             catch (err) {

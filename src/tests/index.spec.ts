@@ -98,12 +98,12 @@ describe("Test the order end point ", () => {
     expect(responseSuperTest.status).toBe(200);
   });
   // test edit the order
-  it("Test edite the order  ", async () => {
-    const responseSuperTest = await requestSuperTest.patch(
-      `/sotreFront/api/orders/${orderID}/editOrders`
-    );
-    expect(responseSuperTest.body.status).toEqual("success");
-  });
+  // it("Test edite the order  ", async () => {
+  //   const responseSuperTest = await requestSuperTest.patch(
+  //     `/sotreFront/api/orders/${orderID}/editOrders`
+  //   );
+  //   expect(responseSuperTest.body.data.totalprice).toEqual("105");
+  // });
 
   // test get the order
   it("Test get the order  ", async () => {

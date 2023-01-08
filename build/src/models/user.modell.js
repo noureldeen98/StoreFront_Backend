@@ -48,9 +48,11 @@ class userModel {
     // create user method
     createUser(user) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log("just the user");
+            console.log(user);
             try {
                 const dataBaseConnection = yield database_1.default.connect(); // to conncet with dataBase
-                const sqlInstruction = `INSERT INTO users (useremail,username , userfirstname ,userlastname , userpassword) VALUES ($1 , $2 , $3 , $4 ,$5) returning userid,username,userfirstname,userlastname,useremail,userpassword `;
+                const sqlInstruction = `INSERT INTO users (useremail,username , userfirstname ,userlastname , userpassword) VALUES ($1 , $2 , $3 , $4 ,$5) returning useremail,username,userfirstname,userlastname,userpassword `;
                 const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction, [
                     user.useremail,
                     user.username,
@@ -59,6 +61,8 @@ class userModel {
                     hashingPasswords(user.userpassword),
                 ]);
                 dataBaseConnection.release(); // is used to stop the connection
+                console.log("result from create user method");
+                console.log(resultsFromMySqlInstruction.rows[0]);
                 return resultsFromMySqlInstruction.rows[0]; // returns the first index of the array
             }
             catch (err) {
@@ -89,6 +93,8 @@ class userModel {
                 const sqlInstruction = `SELECT userid,username, userfirstname , userlastname , useremail FROM users WHERE userid = ($1)`;
                 const resultsFromMySqlInstruction = yield dataBaseConnection.query(sqlInstruction, [user_id]);
                 dataBaseConnection.release();
+                console.log("from get user");
+                console.log(resultsFromMySqlInstruction.rows[0]);
                 return resultsFromMySqlInstruction.rows[0];
             }
             catch (error) {

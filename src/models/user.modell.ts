@@ -15,9 +15,13 @@ const hashingPasswords = (thePasswordOfUser: string) => {
 class userModel {
   // create user method
   async createUser(user: theUser): Promise<theUser | undefined> {
+    console.log("just the user");
+    
+    console.log(user);
+    
     try {
       const dataBaseConnection: PoolClient = await storeFrontDevDB.connect(); // to conncet with dataBase
-      const sqlInstruction = `INSERT INTO users (useremail,username , userfirstname ,userlastname , userpassword) VALUES ($1 , $2 , $3 , $4 ,$5) returning userid,username,userfirstname,userlastname,useremail,userpassword `;
+      const sqlInstruction = `INSERT INTO users (useremail,username , userfirstname ,userlastname , userpassword) VALUES ($1 , $2 , $3 , $4 ,$5) returning useremail,username,userfirstname,userlastname,userpassword `;
       const resultsFromMySqlInstruction: QueryResult =
         await dataBaseConnection.query(sqlInstruction, [
           user.useremail,
@@ -28,6 +32,9 @@ class userModel {
         ]);
 
       dataBaseConnection.release(); // is used to stop the connection
+      console.log("result from create user method");
+      
+console.log(resultsFromMySqlInstruction.rows[0]);
 
       return resultsFromMySqlInstruction.rows[0]; // returns the first index of the array
     } catch (err) {
@@ -60,6 +67,10 @@ class userModel {
         [user_id]
       );
       dataBaseConnection.release();
+      console.log("from get user");
+      
+      console.log(resultsFromMySqlInstruction.rows[0]);
+      
       return resultsFromMySqlInstruction.rows[0];
     } catch (error) {
       throw new Error(

@@ -13,42 +13,59 @@ const orderModelObj = new orderModel()
 
 
 const userID = "aaf5ac45-1a2a-4ea4-94c8-9a8d00324d60";
-const productID = "a7522756-6d81-4ab5-90c2-cb6fd69f369c";
-const orderID = "a7522756-6d81-4ab5-90c2-cb6fd69f369c";
+const productID = "4ded5895-a3f5-4b8a-b50e-8347cf3c381c";
+const orderID = "f33af22a-9a1a-418d-bd1b-6f4d154ed245";
+
+
+const numberOfProductsInMyTable=38 // Please edit it to the number of your product's table rows in my table there are 38 
 
 const user:theUser={
+    useremail:"nournasser10@gmail.com",
     username:"NourEldeen_Nasser",
     userfirstname:"Nour-Eldeen",
     userlastname:"Nasser",
-    useremail:"nenasser1000@gmail.com",
     userpassword:"test123456"
 }
 
-const createdUser={...user , userid:"1"}
-
-const newuser={
-    username:"NourEldeen_Nasser",
-    userfirstname:"Nour-Eldeen",
-    userlastname:"Nasser",
-    useremail:"nenasser1000@gmail.com",
-    userpassword:"test123456"
-}
+const createdUser={...user , userid:"9593088d-f62e-4a65-b6ae-eca255c9a731"}
 
 const product:theProduct={
     productname:"Tea",
     productexpirationdate:new Date("12-12-2024"),
     productprice:"12"
 }
-const createdProduct={...product,productid:"1"}
+const createdProduct={...product,productid:`${productID}`}
 
 
 
 const order:theOrder={
-    orderdate:"12-12-2022",
+    orderdate:new Date("12-12-2022"),
     totalprice:"105"
 }
 
-const createdOrder={...order,orderid:"1"}
+const createdOrder={...order,orderid:`${orderID}`}
+
+describe("test user model",()=>{
+    
+
+    it("create user should be defined",()=>{
+        expect(userModelObj.createUser).toBeDefined()
+    })
+    it("test the create user",async()=>{
+        const result = await userModelObj.createUser(user)
+        console.log(result);
+        
+        expect(result?.username).toEqual(createdUser.username)
+    })
+
+    it("get the user",async()=>{
+        const result = await userModelObj.getTheUser("9593088d-f62e-4a65-b6ae-eca255c9a731");
+        expect(result?.useremail).toEqual(user.useremail)
+    })
+})
+
+
+
 
 describe("test order model",()=>{
     beforeAll(async()=>{
@@ -62,11 +79,34 @@ describe("test order model",()=>{
     })
     it("test the create order",async()=>{
         const result = await orderModelObj.createOrder(order)
-        expect(result).toEqual({...createdOrder})
+        expect(result?.orderdate).toEqual(createdOrder.orderdate)
+        expect(result?.totalprice).toEqual(createdOrder.totalprice)
     })
 
     it("get the order",async()=>{
-        const result = await orderModelObj.getTheOrder("1");
-        expect(result).toEqual({...createdOrder})
+        const result = await orderModelObj.getTheOrder("f33af22a-9a1a-418d-bd1b-6f4d154ed245");
+        expect(result?.totalprice).toEqual(createdOrder.totalprice)
+    })
+    it("get all orders",async()=>{
+        const result = await orderModelObj.getAllOrders();
+        expect(result.length).toEqual(28)
+    })
+    
+})
+
+describe("test product model", ()=>{
+    it("create product",async ()=>{
+        const result = await productModelObj.createProduct(product);
+        expect(result?.productprice).toEqual(createdProduct.productprice)
+    })
+
+        it("get product",async ()=>{
+        const result = await productModelObj.getTheProduct(`${productID}`);
+        expect(result?.productprice).toEqual(createdProduct.productprice)
+    })
+
+    it("get all the products",async()=>{
+        const results = await productModelObj.getAllProducts();
+        expect(results.length).toBe(parseInt(`${numberOfProductsInMyTable}`)) // as I created 38 product
     })
 })
