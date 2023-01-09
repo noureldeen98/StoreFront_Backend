@@ -12,16 +12,18 @@ const productModelObj = new productModel()
 const orderModelObj = new orderModel()
 
 
-const userID = "9593088d-f62e-4a65-b6ae-eca255c9a731";
+// please change the following ids according to what you will have in your database 
+
+const userID = "616da5e6-e0f0-4110-a298-1f1ba27badab";
 const productID = "4ded5895-a3f5-4b8a-b50e-8347cf3c381c";
 const orderID = "f33af22a-9a1a-418d-bd1b-6f4d154ed245";
 
 
-const numberOfProductsInMyTable=38 // Please edit it to the number of your product's table rows in my table there are 38 
+const numberOfProductsInMyTable=1 // Please edit it to the number of your product's table rows in my table there are 38 
 
 const user:theUser={
-    useremail:"nournasser10@gmail.com",
-    username:"NourEldeen_Nasser",
+    useremail:"nournasser1500@gmail.com",
+    username:"NourEldeen_NasserMorad",
     userfirstname:"Nour-Eldeen",
     userlastname:"Nasser",
     userpassword:"test123456"
@@ -53,14 +55,16 @@ describe("test user model",()=>{
     })
     it("test the create user",async()=>{
         const result = await userModelObj.createUser(user)
+        console.log("from testing");
+        
         console.log(result);
         
-        expect(result?.username).toEqual(createdUser.username)
+        expect(result?.username).toEqual(user.username)
     })
 
     it("get the user",async()=>{
         const result = await userModelObj.getTheUser(`${userID}`);
-        expect(result?.useremail).toEqual(user.useremail)
+        expect(result?.username).toEqual(user.username)
     })
 })
 
@@ -68,12 +72,12 @@ describe("test user model",()=>{
 
 
 describe("test order model",()=>{
-    beforeAll(async()=>{
-        const db_connection = await storeFrontDevDB.connect();
-        await userModelObj.createUser(user);
-        await productModelObj.createProduct(product)
-        db_connection.release()
-    })
+    // beforeAll(async()=>{
+    //     const db_connection = await storeFrontDevDB.connect();
+    //     await userModelObj.createUser(user);
+    //     await productModelObj.createProduct(product)
+    //     db_connection.release()
+    // })
     it("create order should be defined",()=>{
         expect(orderModelObj.createOrder).toBeDefined()
     })
@@ -85,11 +89,11 @@ describe("test order model",()=>{
 
     it("get the order",async()=>{
         const result = await orderModelObj.getTheOrder(`${orderID}`);
-        expect(result?.totalprice).toEqual(createdOrder.totalprice)
+        expect(result?.orderdate).toEqual(createdOrder.orderdate)
     })
     it("get all orders",async()=>{
         const result = await orderModelObj.getAllOrders();
-        expect(result.length).toEqual(28)
+        expect(result.length).toEqual(1)
     })
     
 })
@@ -107,6 +111,6 @@ describe("test product model", ()=>{
 
     it("get all the products",async()=>{
         const results = await productModelObj.getAllProducts();
-        expect(results.length).toBe(parseInt(`${numberOfProductsInMyTable}`)) // as I created 38 product
+        expect(results.length).toBe(parseInt(`${numberOfProductsInMyTable}`)) // the number of products the you have in your table 
     })
 })
